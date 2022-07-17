@@ -1,36 +1,34 @@
 from tkinter import *
 from tkinter import messagebox
-import random
+from random import randint, choice, shuffle
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generate_password():
+    #Password Generator Project - Imported from previous Day 5 project modified to have no user inputs
 
-#Password Generator Project - Imported from previous Day 5 project modified to have no user inputs
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+    # list comprehension
+    password_letters = [choice(letters) for _ in range(randint(8, 10))]
 
-nr_letters = random.randint(8, 10)
-nr_symbols = random.randint(2, 4)
-nr_numbers = random.randint(2, 4)
+    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
 
-password_list = []
+    password_numbers = [choice(symbols) for _ in range(randint(2, 4))]
 
-for char in range(nr_letters):
-  password_list.append(random.choice(letters))
+    # combine all 3 lists 
+    password_list = password_letters + password_symbols + password_numbers
+    # shuffle
+    shuffle(password_list)
+        # replace this
+    # password = ""
+    # for char in password_list:
+    #   password += char
+    password = "".join(password_list)
 
-for char in range(nr_symbols):
-  password_list += random.choice(symbols)
+    # add password to the entry
+    password_entry.insert(0, password)
 
-for char in range(nr_numbers):
-  password_list += random.choice(numbers)
-
-random.shuffle(password_list)
-
-password = ""
-for char in password_list:
-  password += char
-
-print(f"Your password is: {password}")
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -93,7 +91,7 @@ password_entry = Entry(width=33)
 password_entry.grid(column=1, row=3)
 
 # add Button - generate password
-gen_password_button = Button(text="Generate Password")
+gen_password_button = Button(text="Generate Password", command=generate_password)
 gen_password_button.grid(column=2, row=3)
 
 # add Button - add, width 43
