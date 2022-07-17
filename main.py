@@ -1,5 +1,5 @@
-from email.mime import image
 from tkinter import *
+from tkinter import messagebox
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -10,11 +10,16 @@ def save():
     email = email_username_entry.get()
     password = password_entry.get()
 
-    with open("data.txt", "a") as data_file:
-        data_file.write(f"{website} | {email} | {password}\n")
-        # delete entry characters -> restart cursor
-        website_entry.delete(0, END)    
-        password_entry.delete(0, END)
+    # displays message - user details are correct? RETURNS BOOLEAN
+    details_correct = messagebox.askokcancel(title=website, message=f"These are the details entered:\nEmail: {email}"
+                                                    f"\nPassword: {password}")
+    # if details are correct - save details to file, else do nothing
+    if details_correct:
+        with open("data.txt", "a") as data_file:
+            data_file.write(f"{website} | {email} | {password}\n")
+            # delete entry characters -> restart cursor
+            website_entry.delete(0, END)    
+            password_entry.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
