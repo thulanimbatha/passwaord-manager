@@ -21,6 +21,7 @@ website_label.grid(column=0, row=1)
 
 # add Entry - website entry, width 51
 website_entry = Entry(width=51)
+website_entry.focus()   # insert cursor
 website_entry.grid(column=1, row=1, columnspan=2)
 
 # add label - Email/username
@@ -29,6 +30,7 @@ website_label.grid(column=0, row=2)
 
 # add Entry - email/username entry, width 51
 email_username_entry = Entry(width=51)
+email_username_entry.insert(0, "youarenothing@underachiever.com")   # insert default email text
 email_username_entry.grid(column=1, row=2, columnspan=2)
 
 # add label - password
