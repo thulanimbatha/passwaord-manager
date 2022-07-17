@@ -11,7 +11,10 @@ def save():
     password = password_entry.get()
 
     with open("data.txt", "a") as data_file:
-        data_file.write(f"{website} | {email} | {password}")
+        data_file.write(f"{website} | {email} | {password}\n")
+        # delete entry characters -> restart cursor
+        website_entry.delete(0, END)    
+        password_entry.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
