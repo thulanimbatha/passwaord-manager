@@ -55,8 +55,24 @@ def save():
                                                         f"\nPassword: {password}")
         # if details are correct - save details to file, else do nothing
         if details_correct:
-            with open("data.json", "w") as data_file:
-                json.dump(new_data, data_file, indent=4)    # write to json file with indents -> improve readability
+            # catch if file is not found/does not exist
+            try:
+                with open("data.json", "r") as data_file:
+                    # 1. read data
+                    data = json.load(data_file)
+            except FileNotFoundError:
+                with open("data.json", "w") as data_file:
+                    json.dump(new_data, data_file, indent=4)
+            else:
+                # do this when try block is successful
+                # 2. update data
+                data.update(new_data)
+            
+                with open("data.json", "w") as data_file:
+                    # 3. write new data
+                    json.dump(data, data_file, indent=4)    # write to json file with indents -> improve readability
+                
+            finally:    
                 # delete entry characters -> restart cursor
                 website_entry.delete(0, END)    
                 password_entry.delete(0, END)
